@@ -1,17 +1,17 @@
 import React from "react";
 import { Col } from "react-bootstrap";
 
-function ScoopOptions({ name, imagePath }) {
+const ToppingOption = ({ name, imagePath }) => {
   return (
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: "center" }}>
       <img
         style={{ width: "75%" }}
         src={`http://localhost:3030/${imagePath}`}
-        alt={`${name} Scoop`}
+        alt={`${name} Topping`}
       />
       <h4>{name}</h4>
     </Col>
   );
-}
+};
 
-export default ScoopOptions;
+export default ToppingOption;
