@@ -9,11 +9,11 @@ const popover = (
   </Popover>
 );
 
-const Example = () => (
-  <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-    <Button variant="success">Click me to see</Button>
-  </OverlayTrigger>
-);
+// const Example = () => (
+//   <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+//     <Button variant="success">Click me to see</Button>
+//   </OverlayTrigger>
+// );
 
 const SummaryForm = () => {
   const [disable, setDisable] = useState(true);
@@ -23,8 +23,8 @@ const SummaryForm = () => {
         <Form.Check
           type="checkbox"
           id="terms-conditions"
-          onClick={() => {
-            setDisable((prev) => !prev);
+          onClick={(e) => {
+            setDisable(!e.target.checked);
           }}
           label={
             <>

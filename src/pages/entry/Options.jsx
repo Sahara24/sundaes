@@ -3,10 +3,14 @@ import ScoopOptions from "./ScoopOptions";
 import { Row } from "react-bootstrap";
 import ToppingOption from "./ToppingOption";
 import AlertBanner from "../common/AlertBanner";
+import { pricePerItem } from "../../constants";
+import { formatCurrency } from "../../utilities";
+import { useOrderDetails } from "../../contexts/OrderDetails";
 
 function Options({ optionType }) {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [error, setError] = useState(false);
+  const { totals } = useOrderDetails();
   //optionType can only be scoops or toppings
 
   useEffect(() => {
@@ -16,11 +20,9 @@ function Options({ optionType }) {
           return res.json();
         })
         .then((options) => {
-          console.log(options);
           setData(options);
         })
         .catch((err) => {
-          console.log(err);
           setError(true);
         });
     };
@@ -41,7 +43,16 @@ function Options({ optionType }) {
     return <AlertBanner />;
   }
 
-  return <Row>{arr}</Row>;
+  return (
+    <>
+      <h2 className="text-capitalize">{optionType}</h2>
+      <p>{formatCurrency(pricePerItem[optionType])} each</p>
+      <p>
+        {optionType} total: {formatCurrency(totals[optionType])}
+      </p>
+      <Row>{arr}</Row>
+    </>
+  );
 }
 
 export default Options;
