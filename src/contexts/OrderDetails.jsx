@@ -32,7 +32,7 @@ export function OrderDetailsProvider(props) {
 
   function calculateTotal(optionType) {
     const countsArray = Object.values(optionCounts[optionType]);
-    const totalValue = countsArray.reduce((total, value) => total + value, 0);
+    const totalValue = countsArray.reduce((total, value) => total + value, 0.0);
     return totalValue * pricePerItem[optionType];
   }
 

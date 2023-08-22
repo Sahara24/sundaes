@@ -14,8 +14,10 @@ function Options({ optionType }) {
   //optionType can only be scoops or toppings
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     const getOptions = async () => {
-      await fetch(`http://localhost:3030/${optionType}`)
+      await fetch(`http://localhost:3030/${optionType}`, { signal })
         .then((res) => {
           return res.json();
         })
@@ -23,10 +25,14 @@ function Options({ optionType }) {
           setData(options);
         })
         .catch((err) => {
-          setError(true);
+          if (err !== "CancelledError") setError(true);
         });
     };
     getOptions();
+
+    return () => {
+      controller.abort();
+    };
   }, [optionType]);
 
   const ItemComponent = optionType === "scoops" ? ScoopOptions : ToppingOption;
