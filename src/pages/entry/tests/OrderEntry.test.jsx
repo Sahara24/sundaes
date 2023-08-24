@@ -6,6 +6,7 @@ import {
 import OrderEntry from "../OrderEntry";
 import { rest } from "msw";
 import { server } from "../../../mocks/server";
+import { BrowserRouter } from "react-router-dom";
 
 test("handles error for scoops and toppings", async () => {
   server.resetHandlers(
@@ -16,7 +17,11 @@ test("handles error for scoops and toppings", async () => {
       res(ctx.status(500))
     )
   );
-  render(<OrderEntry />);
+  render(
+    <BrowserRouter>
+      <OrderEntry />
+    </BrowserRouter>
+  );
   await waitFor(async () => {
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);

@@ -1,10 +1,15 @@
+import { BrowserRouter } from "react-router-dom";
 import { render, screen } from "../../../test-utils/testing-library-utils";
 import SummaryForm from "../SummaryForm";
 import userEvent from "@testing-library/user-event";
 
 test("Initial state of checkbox and its functioning", async () => {
   const user = userEvent.setup();
-  render(<SummaryForm />);
+  render(
+    <BrowserRouter>
+      <SummaryForm />
+    </BrowserRouter>
+  );
   const checkBox = screen.getByRole("checkbox", {
     name: "I agree to Terms and Conditions",
   });
@@ -18,7 +23,11 @@ test("Initial state of checkbox and its functioning", async () => {
 
 test("popover responds to hover", async () => {
   const user = userEvent.setup();
-  render(<SummaryForm />);
+  render(
+    <BrowserRouter>
+      <SummaryForm />
+    </BrowserRouter>
+  );
   //popover starts out hidden
   const nullPopOver = screen.queryByText(
     /no ice cream will actually be delivered/i

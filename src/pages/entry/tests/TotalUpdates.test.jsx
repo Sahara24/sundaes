@@ -2,6 +2,7 @@ import { screen, render } from "../../../test-utils/testing-library-utils";
 import Options from "../Options";
 import userEvent from "@testing-library/user-event";
 import OrderEntry from "../OrderEntry";
+import { BrowserRouter } from "react-router-dom";
 
 test("update scoop subtotal when scoops changes", async () => {
   const user = userEvent.setup();
@@ -58,7 +59,11 @@ test("update topping subtotal when topping changes", async () => {
 
 describe("grand total", () => {
   test("Grand total starts at $0.00", () => {
-    const { unmount } = render(<OrderEntry />);
+    const { unmount } = render(
+      <BrowserRouter>
+        <OrderEntry />
+      </BrowserRouter>
+    );
     const totalHeading = screen.getByRole("heading", {
       name: /grand total: \$/i,
     });
@@ -67,7 +72,11 @@ describe("grand total", () => {
   });
   test("Grand total updates properly if scoops are added first", async () => {
     const user = userEvent.setup();
-    render(<OrderEntry />);
+    render(
+      <BrowserRouter>
+        <OrderEntry />
+      </BrowserRouter>
+    );
     const totalHeading = screen.getByRole("heading", {
       name: /grand total: \$/i,
     });
@@ -86,7 +95,11 @@ describe("grand total", () => {
   });
   test("Grand total updates properly if topping is added first", async () => {
     const user = userEvent.setup();
-    render(<OrderEntry />);
+    render(
+      <BrowserRouter>
+        <OrderEntry />
+      </BrowserRouter>
+    );
     const totalHeading = screen.getByRole("heading", {
       name: /grand total: \$/i,
     });
@@ -101,7 +114,11 @@ describe("grand total", () => {
   });
   test("Grand total updates properly if item is removed", async () => {
     const user = userEvent.setup();
-    render(<OrderEntry />);
+    render(
+      <BrowserRouter>
+        <OrderEntry />
+      </BrowserRouter>
+    );
     const totalHeading = screen.getByRole("heading", {
       name: /grand total: \$/i,
     });
