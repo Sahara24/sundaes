@@ -1,10 +1,11 @@
 import { Container } from "react-bootstrap";
 import { OrderDetailsProvider } from "./contexts/OrderDetails";
 import OrderEntry from "./pages/entry/OrderEntry";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ThankYou from "./pages/thankYou/ThankYou";
 import { useState } from "react";
 import OrderSummary from "./pages/summary/OrderSummary";
+import "./App.css";
 
 function App() {
   const [orderNum, setOrderNum] = useState(null);
