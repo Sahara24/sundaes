@@ -13,7 +13,9 @@ const popover = (
 const SummaryForm = ({ handleOrderNumber }) => {
   const navigate = useNavigate();
   const [disable, setDisable] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   async function confirmOrder() {
+    setIsLoading(() => true);
     try {
       const response = await fetch(`http://localhost:3030/order`, {
         method: "POST",
@@ -23,43 +25,51 @@ const SummaryForm = ({ handleOrderNumber }) => {
       });
       const result = await response.json();
       handleOrderNumber(result?.orderNumber);
+      setIsLoading(() => false);
       navigate("/thankyou");
       console.log(result);
     } catch (error) {
       console.log(error);
+      setIsLoading(() => false);
     }
   }
   return (
-    <Form>
-      <Form.Group controlId="terms-and-conditions">
-        <Form.Check
-          type="checkbox"
-          id="terms-conditions"
-          onClick={(e) => {
-            setDisable(!e.target.checked);
-          }}
-          label={
-            <>
-              I agree to{" "}
-              <OverlayTrigger placement="auto" overlay={popover}>
-                <span className="text-info">Terms and Conditions</span>
-              </OverlayTrigger>
-            </>
-          }
-        />
-      </Form.Group>
-      <Button
-        variant="primary"
-        type="submit"
-        disabled={disable}
-        onClick={(e) => {
-          e.preventDefault();
-          confirmOrder();
-        }}
-      >
-        Confirm order
-      </Button>
-    </Form>
+    <>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Form>
+          <Form.Group controlId="terms-and-conditions">
+            <Form.Check
+              type="checkbox"
+              id="terms-conditions"
+              onClick={(e) => {
+                setDisable(!e.target.checked);
+              }}
+              label={
+                <>
+                  I agree to{" "}
+                  <OverlayTrigger placement="auto" overlay={popover}>
+                    <span className="text-info">Terms and Conditions</span>
+                  </OverlayTrigger>
+                </>
+              }
+            />
+          </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={disable}
+            onClick={(e) => {
+              e.preventDefault();
+              confirmOrder();
+            }}
+          >
+            Confirm order
+          </Button>
+        </Form>
+      )}
+    </>
   );
 };
 

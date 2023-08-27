@@ -30,9 +30,15 @@ test("Order Phases for happy path", async () => {
   });
   await user.click(termsAndConditions);
   await user.click(confirmOrderBtn);
+
+  const loading = await screen.findByText("Loading...");
+  expect(loading).toBeInTheDocument();
+
   const thankYouText = await screen.findByRole("heading", {
     name: "Thank You!",
   });
+  const noLoader = screen.queryByText("Loading...");
+  expect(noLoader).not.toBeInTheDocument();
   expect(thankYouText).toBeInTheDocument();
   const orderNumber = screen.getByText("Your order number", { exact: false });
   expect(orderNumber).toBeInTheDocument();
