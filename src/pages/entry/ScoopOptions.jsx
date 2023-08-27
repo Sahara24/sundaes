@@ -6,12 +6,12 @@ import { useOrderDetails } from "../../contexts/OrderDetails";
 
 function ScoopOptions({ name, imagePath }) {
   const { updateItemCount } = useOrderDetails();
-  const [invalid, setInvalid] = useState("");
+  const [invalid, setInvalid] = useState(false);
   const handleChange = (e) => {
     if (/^(0|[1-9]\d*)$/.test(e.target.value)) {
-      setInvalid(() => "");
+      setInvalid(() => false);
     } else {
-      setInvalid(() => "invalid");
+      setInvalid(() => true);
     }
     updateItemCount(
       name,
@@ -35,12 +35,12 @@ function ScoopOptions({ name, imagePath }) {
         <Form.Label column xs="6" style={{ textAlign: "right" }}>
           {name}
         </Form.Label>
-        <Col xs="5" style={{ textAlign: "left" }}>
+        <Col xs="6" style={{ textAlign: "left" }}>
           <Form.Control
             type="number"
             defaultValue={0.0}
             onChange={handleChange}
-            className={invalid}
+            isInvalid={invalid}
           />
         </Col>
       </Form.Group>

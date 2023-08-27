@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import ThankYou from "./pages/thankYou/ThankYou";
 import { useState } from "react";
 import OrderSummary from "./pages/summary/OrderSummary";
-import "./App.css";
 
 function App() {
   const [orderNum, setOrderNum] = useState(null);
