@@ -17,5 +17,5 @@ test("input box turns red on Invalid inputs", async () => {
 
   await user.clear(vanillaScoop);
   await user.type(vanillaScoop, "12");
-  expect(vanillaScoop).not.toHaveClass("invalidp");
+  expect(vanillaScoop).not.toHaveClass("invalid");
 });
