@@ -54,3 +54,24 @@ test("Order Phases for happy path", async () => {
   expect(toppingTotal).toBeInTheDocument();
   unmount();
 });
+
+test("Toppings header if no toppings", async () => {
+  const user = userEvent.setup();
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+  const mintScoop = await screen.findByRole("spinbutton", {
+    name: "Mint chip",
+  });
+  const orderSundaeBtn = screen.getByRole("button", {
+    name: /Order Sundae!$/i,
+  });
+  await user.clear(mintScoop);
+  await user.type(mintScoop, "1");
+  await user.click(orderSundaeBtn);
+
+  const toppingHeading = screen.queryByText("Toppings", { exact: false });
+  expect(toppingHeading).not.toBeInTheDocument();
+});

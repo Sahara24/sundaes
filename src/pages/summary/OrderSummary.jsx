@@ -14,13 +14,18 @@ const OrderSummary = ({ handleOrderNumber }) => {
   ));
   const toppingsArray = Object.entries(optionCounts.toppings);
   const toppingList = toppingsArray.map((key) => <li key={key}>{key}</li>);
+  const toppingsPart = (
+    <>
+      <h2>Toppings: {formatCurrency(totals.toppings)}</h2>
+      <ul>{toppingList}</ul>
+    </>
+  );
   return (
     <div>
       <h1>Order Summary</h1>
       <h2>Scoops: {formatCurrency(totals.scoops)}</h2>
       <ul>{scoopList}</ul>
-      <h2>Toppings: {formatCurrency(totals.toppings)}</h2>
-      <ul>{toppingList}</ul>
+      <>{totals.toppings > 0 ? toppingsPart : null}</>
       <SummaryForm handleOrderNumber={handleOrderNumber} />
     </div>
   );
