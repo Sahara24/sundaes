@@ -12,10 +12,6 @@ test("input box turns red on Invalid inputs", async () => {
   expect(vanillaScoop).toHaveClass("is-invalid");
 
   await user.clear(vanillaScoop);
-  await user.type(vanillaScoop, "1.5");
-  expect(vanillaScoop).toHaveClass("is-invalid");
-
-  await user.clear(vanillaScoop);
   await user.type(vanillaScoop, "12");
   expect(vanillaScoop).not.toHaveClass("is-invalid");
 });

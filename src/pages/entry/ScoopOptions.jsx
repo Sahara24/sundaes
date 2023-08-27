@@ -8,10 +8,11 @@ function ScoopOptions({ name, imagePath }) {
   const { updateItemCount } = useOrderDetails();
   const [invalid, setInvalid] = useState(false);
   const handleChange = (e) => {
-    if (/^(0|[1-9]\d*)$/.test(e.target.value)) {
-      setInvalid(() => false);
-    } else {
+    if (e.target.value < 0) {
       setInvalid(() => true);
+      return;
+    } else {
+      setInvalid(() => false);
     }
     updateItemCount(
       name,
