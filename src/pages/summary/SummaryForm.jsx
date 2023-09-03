@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { useNavigate } from "react-router";
+import AlertBanner from "../common/AlertBanner";
 
 const popover = (
   <Popover id="popover-basic">
@@ -14,6 +15,7 @@ const SummaryForm = ({ handleOrderNumber }) => {
   const navigate = useNavigate();
   const [disable, setDisable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   async function confirmOrder() {
     setIsLoading(() => true);
     try {
@@ -30,8 +32,12 @@ const SummaryForm = ({ handleOrderNumber }) => {
       console.log(result);
     } catch (error) {
       console.log(error);
+      setError(error);
       setIsLoading(() => false);
     }
+  }
+  if (error) {
+    return <AlertBanner message={error.orderNumber} />;
   }
   return (
     <>
